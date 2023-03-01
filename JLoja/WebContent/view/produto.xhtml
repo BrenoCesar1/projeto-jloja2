@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:p="http://primefaces.org/ui"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+
+<ui:composition template="/ModeloJloja/modeloJLoja.xhtml">
+
+    <ui:define name="modeloJLoja">
+    
+    <h:form id="form">
+         <f:event listener="#{produtoMB.listarProduto}"
+             type="preRenderView"></f:event>
+         <p:dataTable id="produto" var="pro"
+             filterredValue="#{ProdutoMB.listaProdutosFiltrados}"
+             value="#{produtoMB.listaProdutos}" emptyMessage="Nenhum registro encontrado."
+             rowsPerPageTemplate="5,10,15" paginator="true" rows="2">
+            <f:facet name="header">
+         Produtos
+            </f:facet>
+            <p:column headerText="Código" filterBy="#{pro.idproduto}"
+            style="width;10%">
+              <h:outputText value="#{pro.idproduto}"/>
+            </p:column>
+            <p:column headerText="Descrição" filterBy="#{pro.descricao}"
+            style="width;25%">
+              <h:outputText value="#{pro.descricao}"/>
+            </p:column>
+            <p:column headerText="Preço" filterBy="#{pro.valor}"
+            style="width;25%">
+              <h:outputText value="R$ #{pro.valor}"/>
+            </p:column>
+            <p:column headerText="Qtde" filterBy="#{pro.quantidade}"
+            style="width;25%">
+              <h:outputText value="#{pro.quantidade}"/>
+            </p:column>
+            <p:column headerText="Fabricante" filterby="#{pro.fabricante_idfabricante.descricao}">
+                <h:outputText value="#{pro.fabricante_idfabricante.descricao}" /> 
+            </p:column>
+            <p:column headerText="Usuario" filterby="#{pro.usuario_idusuario.nome}">
+                <h:outputText value="#{pro.usuario_idusuario.nome}" /> 
+            </p:column>
+            
+       <p:column headerText="Ação" style="width:10%;text-align: center">
+            <p:commandButton icon="ui-icon-pencil" title="Alterar"
+            onclick="PF('dlgEdi').show();" 
+            actionListener="#{produtoMB.buscarProdutoCodigo(pro.idproduto)}"
+            action="#{fabricanteMB.buscarFabricanteCodigo(pro.fabricante_idfabricante.idfabricante)}"
+            update=":proEditar:pnlEditar :proEditar:pnlBuscaEdi">
+            </p:commandButton>
+            
+            <p:commandButton id="btnExc" icon="ui-icon-trash" title="Excluir"
+                   actionListener="#{produtoMB.buscarProdutoCodigo(pro.idproduto)}">
+                   </p:commandButton>
+            
+            <p:overlayPanel id="excPanel" for="btnExc" hideEffect="fade">
+            <p:commandButton value="Sim" icon="ui-icon-check"
+            actionListener="#{produtoMB.excluirProduto}"
+            update=":form:produto :growl" />
+            <p:commandButton value="Não" icon="ui-icon-close"
+            update=":form:produto" />
+            </p:overlayPanel>
+            
+       </p:column>
+    
+       <f:facet name="footer">
+           <p:commandButton icon="ui-icon-plusthick"
+               onclick="PF('dlgCad').show();" value="Novo Produto" />
+       </f:facet>
+    </p:dataTable>
+  </h:form>  
+  
+  <p:dialog widgetVar="dlgCad" id="cadpro" header="Cadastro de Produtos"
+       modal="true" appendTo="@(body)" resizable="false" draggable="false"
+       width="30%">
+       <h:form id="proCadastro">
+          <h:panelGrid id="pnlCadastro" columns="2" cellpadding="5"
+              width="100%">
+              <h:outputLabel value="Código" />
+              <p:inputText disabled="true" id="id" value="" style="width:30%;" />
+              <h:outputLabel value="Nome:" />
+              <p:inputText id="desc" value="#{produtoMB.produtoEntity.descricao}"
+                    required="true" style="width:100%;">
+              </p:inputText>
+              <h:outputLabel value="Valor:" />
+              <p:inputNumber id="preco" symbol="R$ "
+                    value="#{produtoMB.produtoEntity.valor}" required="true" 
+                    style="width:100%;">
+              </p:inputNumber>
+              <h:outputLabel value="Qtde:" />
+              <p:inputText id="qtde"
+                    value="#{produtoMB.produtoEntity.quantidade}" required="true" 
+                    style="width:100%;">
+              </p:inputText>
+              <h:outputLabel value="Usuário" />
+              <p:inputText value="#{usuarioMB.usuarioLogado.nome}"
+                  disabled="true" style="width:100%;">
+              </p:inputText>
+            </h:panelGrid>
+              
+              <h:panelGrid id="pnlBusca" columns="3" cellpadding="5" width= "100%">
+                 <h:outputLabel value="Fabricante:" />
+                 <p:inputText value="#{fabricanteMB.fabricanteEntity.descricao}"
+                   disabled="true" style="width:100%;">
+                 </p:inputText>
+                 <p:commandButton onclick="PF('dlgFabricante').show();" icon="ui-icon-search" /> 
+              </h:panelGrid>
+               
+              <h:panelGrid>
+              <f:facet name="footer">
+                    <p:commandButton value="Gravar" icon="ui-icon-disk"
+                         actionListener="#{produtoMB.adicionarProduto(usuarioMB.usuarioLogado, fabricanteMB.fabricanteEntity)}"
+                         action="#{fabricanteMB.limpar}"
+                         update=":form:produto :proCadastro:pnlCadastro :proCadastro:pnlBusca :growl" />
+               </f:facet>
+            </h:panelGrid>
+          </h:form>
+      </p:dialog>
+             <p:dialog widgetVar="dlgEdi" id="edipro" header="Edição de Produtos"
+               modal="true" appendTo="@(body)" resizable="false" draggable="false"
+               width="30%">
+               <h:form id="proEditar">
+                 <h:panelGrid id="pnlEditar" columns="2" cellpadding="5" width="100%">
+                 <h:outputLabel value="Código" />
+                 <p:inputText disabled="true" id="id" value="" style="width:30%;" />
+                 <h:outputLabel value="Nome:" />
+                 <p:inputText id="desc" value="#{produtoMB.produtoEntity.descricao}"
+                     required="true" style="width:100%;">
+                 </p:inputText>
+                 <h:outputLabel value="Valor: " />
+                 <p:inputNumber id="preco" symbol="R$ "
+                     value="#{produtoMB.produtoEntity.valor}" required="true" 
+                     style="width:100%;">
+                 </p:inputNumber>
+                 <h:outputLabel value="Qtde" />
+                 <p:inputText id="qdte" 
+                     value="#{produtoMB.produtoEntity.quantidade}" required="true"
+                     style="width:100%;">
+                 </p:inputText>
+                 <h:outputLabel value="Usuário" />
+                 <p:inputText 
+                     value="#{produtoMB.produtoEntity.usuario_idusuario.nome}"
+                     disabled="true" style="width:100%;">
+                 </p:inputText>
+               </h:panelGrid>
+                 
+                 <h:panelGrid id="pnlBuscaEdi" columns="3" cellpadding="5"
+                     width="100%">
+                 <h:outputLabel value="Fabricante:" />
+                 <p:inputText value="#{fabricanteMB.fabricanteEntity.descricao}"
+                      disabled="true" style="width:100%;">
+                 </p:inputText>
+                 <p:commandButton icon="ui-icon-search"  onclick="PF('dlgFabricante').show();" />    
+            </h:panelGrid>  
+                 
+            <h:panelGrid>     
+                 <f:facet name="footer">
+                    <p:commandButton value="Gravar edição"
+                         actionListener="#{produtoMB.editarProduto(fabricanteMB.fabricanteEntity)}"
+                         icon="ui-icon-disk" action="#{fabricanteMB.limpar}"
+                         onclick="PF('dlgEdi').hide();"
+                         update=":form:produto :proEditar:pnlEditar :proEditar:pnlBuscaEdi :growl" />              
+             </f:facet>
+          </h:panelGrid>
+       </h:form>
+    </p:dialog>
+            <p:dialog widgetVar="dlgFabricante" id="buscaFab"
+                header="Fabricantes" modal="true" appendTo="@(body)"
+                resizable="false" draggable="false" width="30%">
+                <f:event listener="#{fabricanteMB.listarFabricante}"
+           type="preRenderView"></f:event>
+                  
+             <p:dataTable id="fabricante" var="fab"
+                value="#{fabricanteMB.listaFabricantes}"  >
+                <p:column headerText="Fabricante">
+                  <h:outputText value="#{fab.descricao}" />
+                </p:column>
+                <p:column headerText="Selecionar"
+                   style="width:20%;text-align: center">
+                   <p:commandButton icon="ui-icon-circle-check" title="Selecionar"
+                   onclick="PF('dlgFabricante').hide();" 
+                   actionListener="#{fabricanteMB.buscarFabricanteCodigo(fab.idfabricante)}"
+                  update=":proCadastro:pnlBusca :proEditar:pnlBuscaEdi">
+                   </p:commandButton>
+                </p:column>    
+              </p:dataTable> 
+          </p:dialog>   
+    
+  
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
+ Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:p="http://primefaces.org/ui"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets">  
+<h:head>
+<title>Login Usuário</title>
+
+<!-- Mensagens de Alerta -->
+<p:growl id="growl" />
+<!-- Mensagens de Alerta -->
+
+
+<!--  CÓDIGO CSS QUE INSERE COR DE FUNDO DA PÁGINA -->
+<style type="text/css">
+body{
+background: #808080;
+}
+</style>
+<!--  CÓDIGO CSS QUE INSERE COR DE FUNDO DA PÁGINA -->
+
+</h:head>
+
+
+<h:body>
+
+<h:form id="formLogin">
+    <p:panel header="Autenticação - JLoja"
+         style="position:absolute; top:50%; left:50%; margin-top:-155px; margin-left:-155px; ">
+         
+       <h:panelGrid columns="2" cellpadding="10">
+            <h:outputLabel value="Usuário" />
+            <p:inputText required="true" value="#{usuarioMB.usuarioLogado.login}" >
+                 
+            </p:inputText>
+            
+            <h:outputLabel value="Senha" />
+            <p:password required="true" value="#{usuarioMB.usuarioLogado.senha}">
+
+            </p:password>
+         </h:panelGrid>
+         
+         <br></br>
+         <p:commandButton value="Entrar" icon="ui-icon-check"
+         actionListener="#{usuarioMB.autenticar}" update=":formLogin :growl" />
+    </p:panel>
+</h:form>
+
+</h:body>
+</html>
