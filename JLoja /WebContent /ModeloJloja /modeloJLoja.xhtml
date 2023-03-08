@@ -27,24 +27,24 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
     
     .ui-menu, .ui-menubar, .ui-menu-child {
         min-width: 180px !important;
-         min-height: 100px !important;
+         min-height: 150px !important;
     }
    </style>
 </h:head>
 <h:body>
 <p:layout fullpage="true">
          <p:layoutUnit position="north"  resizable="true">
-         <!--  AQUI SERÁ INSERIDO O MENU DO PROJETO -->
+         <!--  AQUI SERÃ INSERIDO O MENU DO PROJETO -->
         <h:form>
           <p:menubar>
                <p:submenu label= "Arquivo" icon="ui-icon-home">
                    <p:menuitem value = "Sair" icon="ui-icon-extlink" action="#{usuarioMB.sair}"  />
           </p:submenu>
           
-          <p:submenu label="Manutenção" icon="ui-icon-pencil">
+          <p:submenu label="ManutenÃ§Ã£o" icon="ui-icon-pencil">
               <p:menuitem value="Fabricante" icon ="ui-icon-person" url="/view/fabricante.xhtml" />
               <p:menuitem value="Produto" icon ="ui-icon-cart" url="/view/produto.xhtml" />
-              <p:menuitem value="Usuário" icon ="ui-icon-person" url="/view/usuario.xhtml" />
+              <p:menuitem value="UsuÃ¡rio" icon ="ui-icon-person" url="/view/usuario.xhtml" />
           </p:submenu>
           
           
@@ -55,15 +55,15 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
        </h:form>
     </p:layoutUnit>
       
-      <p:layoutUnit position="center">
-      <!-- AQUI IRÁ O CONTEUDO DAS PAGINAS -->
+      <p:layoutUnit position="center" style="width:50%;">
+      <!-- AQUI IRÃ O CONTEUDO DAS PAGINAS -->
               <ui:insert name="modeloJLoja"></ui:insert>
       </p:layoutUnit>
       
       
-      <p:layoutUnit position="south"  header="Curso de Java Web Módulo 1"
+      <p:layoutUnit position="south"  header="Curso de Java Web MÃ³dulo 1"
       resizable="true" closable="true" collapsible="true">
-      <!-- AQUI ESTÁ LOCALIZADO O RODAPÉ DO PROJETO -->
+      <!-- AQUI ESTÃ LOCALIZADO O RODAPÃ‰ DO PROJETO -->
       </p:layoutUnit>
       
      </p:layout>  
