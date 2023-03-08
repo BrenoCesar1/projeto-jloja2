@@ -17,19 +17,19 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
          <p:dataTable id="produto" var="pro"
              filterredValue="#{ProdutoMB.listaProdutosFiltrados}"
              value="#{produtoMB.listaProdutos}" emptyMessage="Nenhum registro encontrado."
-             rowsPerPageTemplate="5,10,15" paginator="true" rows="2">
+             rowsPerPageTemplate="5,10,15" paginator="true" rows="5">
             <f:facet name="header">
          Produtos
             </f:facet>
-            <p:column headerText="Código" filterBy="#{pro.idproduto}"
+            <p:column headerText="CÃ³digo" filterBy="#{pro.idproduto}"
             style="width;10%">
               <h:outputText value="#{pro.idproduto}"/>
             </p:column>
-            <p:column headerText="Descrição" filterBy="#{pro.descricao}"
+            <p:column headerText="DescriÃ§Ã£o" filterBy="#{pro.descricao}"
             style="width;25%">
               <h:outputText value="#{pro.descricao}"/>
             </p:column>
-            <p:column headerText="Preço" filterBy="#{pro.valor}"
+            <p:column headerText="PreÃ§o" filterBy="#{pro.valor}"
             style="width;25%">
               <h:outputText value="R$ #{pro.valor}"/>
             </p:column>
@@ -44,7 +44,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
                 <h:outputText value="#{pro.usuario_idusuario.nome}" /> 
             </p:column>
             
-       <p:column headerText="Ação" style="width:10%;text-align: center">
+       <p:column headerText="AÃ§Ã£o" style="width:10%;text-align: center">
             <p:commandButton icon="ui-icon-pencil" title="Alterar"
             onclick="PF('dlgEdi').show();" 
             actionListener="#{produtoMB.buscarProdutoCodigo(pro.idproduto)}"
@@ -60,7 +60,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
             <p:commandButton value="Sim" icon="ui-icon-check"
             actionListener="#{produtoMB.excluirProduto}"
             update=":form:produto :growl" />
-            <p:commandButton value="Não" icon="ui-icon-close"
+            <p:commandButton value="NÃ£o" icon="ui-icon-close"
             update=":form:produto" />
             </p:overlayPanel>
             
@@ -79,7 +79,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
        <h:form id="proCadastro">
           <h:panelGrid id="pnlCadastro" columns="2" cellpadding="5"
               width="100%">
-              <h:outputLabel value="Código" />
+              <h:outputLabel value="CÃ³digo" />
               <p:inputText disabled="true" id="id" value="" style="width:30%;" />
               <h:outputLabel value="Nome:" />
               <p:inputText id="desc" value="#{produtoMB.produtoEntity.descricao}"
@@ -95,7 +95,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
                     value="#{produtoMB.produtoEntity.quantidade}" required="true" 
                     style="width:100%;">
               </p:inputText>
-              <h:outputLabel value="Usuário" />
+              <h:outputLabel value="UsuÃ¡rio" />
               <p:inputText value="#{usuarioMB.usuarioLogado.nome}"
                   disabled="true" style="width:100%;">
               </p:inputText>
@@ -119,12 +119,12 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
             </h:panelGrid>
           </h:form>
       </p:dialog>
-             <p:dialog widgetVar="dlgEdi" id="edipro" header="Edição de Produtos"
+             <p:dialog widgetVar="dlgEdi" id="edipro" header="EdiÃ§Ã£o de Produtos"
                modal="true" appendTo="@(body)" resizable="false" draggable="false"
                width="30%">
                <h:form id="proEditar">
                  <h:panelGrid id="pnlEditar" columns="2" cellpadding="5" width="100%">
-                 <h:outputLabel value="Código" />
+                 <h:outputLabel value="CÃ³digo" />
                  <p:inputText disabled="true" id="id" value="" style="width:30%;" />
                  <h:outputLabel value="Nome:" />
                  <p:inputText id="desc" value="#{produtoMB.produtoEntity.descricao}"
@@ -140,7 +140,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
                      value="#{produtoMB.produtoEntity.quantidade}" required="true"
                      style="width:100%;">
                  </p:inputText>
-                 <h:outputLabel value="Usuário" />
+                 <h:outputLabel value="UsuÃ¡rio" />
                  <p:inputText 
                      value="#{produtoMB.produtoEntity.usuario_idusuario.nome}"
                      disabled="true" style="width:100%;">
@@ -158,7 +158,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
                  
             <h:panelGrid>     
                  <f:facet name="footer">
-                    <p:commandButton value="Gravar edição"
+                    <p:commandButton value="Gravar ediÃ§Ã£o"
                          actionListener="#{produtoMB.editarProduto(fabricanteMB.fabricanteEntity)}"
                          icon="ui-icon-disk" action="#{fabricanteMB.limpar}"
                          onclick="PF('dlgEdi').hide();"
