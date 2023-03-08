@@ -14,13 +14,13 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
          <p:dataTable id="usuario" var="usu"
              filterredValue="#{FabricanteMB.listaUsuariosFiltrados}"
              value="#{usuarioMB.listaUsuarios}"
-             rowsPerPageTemplate="5,10,15" paginator="true" rows="2"
+             rowsPerPageTemplate="5,10,15" paginator="true" rows="5"
              emptyMessage="Nenhum registro encontrado.">
          <f:facet name="header">
-         Usuários
+         UsuÃ¡rios
             </f:facet>
             
-            <p:column headerText="Código" filterBy="#{usu.idusuario}"
+            <p:column headerText="CÃ³digo" filterBy="#{usu.idusuario}"
             style="width;10%">
               <h:outputText value="#{usu.idusuario}"/>
             </p:column>
@@ -36,12 +36,12 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
             style="width;25%">
               <h:outputText value="#{usu.senha}"/>
             </p:column>
-            <p:column headerText="Situação" filterBy="#{usu.situacao}"
+            <p:column headerText="SituaÃ§Ã£o" filterBy="#{usu.situacao}"
             style="width;15%">
               <h:outputText value="#{usu.situacao}"/>
             </p:column>
             
-            <p:column headerText="Ação"
+            <p:column headerText="AÃ§Ã£o"
             style="width:10%;text-align: center">
             <p:commandButton icon="ui-icon-pencil" title="Alterar"
             onclick="PF('dlgEdi').show();"
@@ -62,19 +62,19 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
             
             <f:facet name= "footer">
             <p:commandButton icon="ui-icon-plusthick"
-               onclick="PF('dlgCad').show();" value="Novo Usuário"/>
+               onclick="PF('dlgCad').show();" value="Novo UsuÃ¡rio"/>
                
                
             </f:facet>
          </p:dataTable>
        </h:form>
-       <p:dialog widgetVar="dlgCad" id="cadusu" header="Cadastro de Usuários"
+       <p:dialog widgetVar="dlgCad" id="cadusu" header="Cadastro de UsuÃ¡rios"
        modal="true" appendTo="@(body)" resizable="false" draggable="false"
        width="30%">
        <h:form id="usuCadastro">
           <h:panelGrid id="pnlCadastro" columns="2" cellpadding="5"
               width="100%">
-              <h:outputLabel value="Código" />
+              <h:outputLabel value="CÃ³digo" />
               <p:inputText disabled="true" id="id" value="" style="width:30%;" />
               <h:outputLabel value="Nome:" />
               <p:inputText id="nome" value="#{usuarioMB.usuarioEntity.nome}"
@@ -92,7 +92,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
               <p:selectOneRadio id="console"
                     value="#{usuarioMB.usuarioEntity.situacao}">
                     <f:selectItem itemLabel="Sim" itemValue="S" />
-                    <f:selectItem itemLabel="Não" itemValue="N" />
+                    <f:selectItem itemLabel="NÃ£o" itemValue="N" />
               </p:selectOneRadio>
               <f:facet name="footer">
                     <p:commandButton value="Gravar"
@@ -102,13 +102,13 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
             </h:panelGrid>
           </h:form>
       </p:dialog>
-             <p:dialog widgetVar="dlgEdi" id="ediusu" header="Edição de Usuários"
+             <p:dialog widgetVar="dlgEdi" id="ediusu" header="EdiÃ§Ã£o de UsuÃ¡rios"
                  modal="true" appendTo="@(body)" resizable="false" draggable="false"
                  width="30%">
                  <h:form id="usuEditar">
                  <h:panelGrid id="pnlEditar" columns="2" cellpadding="5"
                  width="100%">
-                 <h:outputLabel value="Código" />
+                 <h:outputLabel value="CÃ³digo" />
                  <p:inputText disabled="true" id="id" value="" style="width:30%;" />
                  <h:outputLabel value="Nome:" />
                  <p:inputText id="nome" value="#{usuarioMB.usuarioEntity.nome}"
@@ -126,10 +126,10 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
                  <p:selectOneRadio id="console"
                      value="#{usuarioMB.usuarioEntity.situacao}">
                      <f:selectItem itemLabel="Sim" itemValue="S" />
-                     <f:selectItem itemLabel="Não" itemValue="N" />
+                     <f:selectItem itemLabel="NÃ£o" itemValue="N" />
                  </p:selectOneRadio>
                   <f:facet name="footer">
-       <p:commandButton value="Gravar edição"
+       <p:commandButton value="Gravar ediÃ§Ã£o"
               actionListener="#{usuarioMB.editarUsuario}"
               onclick="PF('dlgEdi').hide();" icon="ui-icon-disk"
               update=":form:usuario :usuCadastro:pnlCadastro :growl" />
