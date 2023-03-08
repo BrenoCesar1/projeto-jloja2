@@ -10,22 +10,22 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="/ModeloJloja/modeloJLoja.xhtml">
     <ui:define name="modeloJLoja">
     
-        <h:form id="form" >
+        <h:form id="form">
            <f:event listener="#{fabricanteMB.listarFabricante}"
            type="preRenderView"></f:event> 
               <p:dataTable id="fabricante" var="fab" 
               filteredValue="#{fabricanteMB.listaFabricantesFiltrados}"
-              value="#{fabricanteMB.listaFabricantes}" rowsPerPageTemplate="5,10,15" paginator="true" rows="5">
+              value="#{fabricanteMB.listaFabricantes}">
               <f:facet name="header">
               Fabricantes
           </f:facet>
-               <p:column headerText="CÃ³digo" filterBy="#{fab.idfabricante}">
+               <p:column headerText="Código" filterBy="#{fab.idfabricante}">
                        <h:outputText value="#{fab.idfabricante}" />
                </p:column>
                <p:column headerText="Nome" filterBy="#{fab.descricao}">
-                    	<h:outputText value="#{fab.descricao}" />
+                     <h:outputText value="#{fab.descricao}" />
                </p:column>
-               <p:column headerText="AÃ§Ã£o" style="width:10%;text-align: center">
+               <p:column headerText="Ação" style="width:10%;text-align: center">
                   <p:commandButton icon="ui-pi-user-edit" title="Alterar"
                   onclick="PF('dlgEdi').show();"
                   actionListener="#{fabricanteMB.buscarFabricanteCodigo(fab.idfabricante)}"
@@ -38,9 +38,9 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
                    <p:overlayPanel id="excPanel" for="btnExc" hideEffect="fade">
                    <p:commandButton value="Sim" icon="ui-icon-check" 
                   actionListener="#{fabricanteMB.excluirFabricante}"
-                  update=":form:fabricante :fabCadastro:pnlCadastro :growl"/>
+                  update=":form:fabricante :growl"/>
   
-                   <p:commandButton value="NÃ£o" icon="ui-icon-close" 
+                   <p:commandButton value="Não" icon="ui-icon-close" 
                    update=":form:fabricante" />
                    </p:overlayPanel>
                    </p:column>
@@ -51,34 +51,34 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
                    </f:facet> 
            </p:dataTable>
         </h:form>
-        
+         
        <p:dialog widgetVar="dlgCad" id="cadfab" header="Cadastro de Fabricante" 
        modal="true" appendTo="@(body)" resizable="false" draggable="false"
        width="30%"> 
-       	<h:form id="fabCadastro">
-       	<h:panelGrid id="pnlCadastro" columns="2" cellpadding="5"
+       <h:form id="fabCadastro">
+       <h:panelGrid id="pnlCadastro" columns="2" cellpadding="5"
        width="100%">
-       		<h:outputLabel value="CÃ³digo:" />
-       		<p:inputText disabled="true" id="id" value="" style="width:30%;" />
-       		<h:outputLabel value="Nome:" />
-      		 <p:inputText id="desc" value="#{fabricanteMB.fabricanteEntity.descricao}"
-       		required="true" style="width:100%;">
-       		</p:inputText>
-       		<f:facet name="footer">
-       		<p:commandButton value="Gravar"
-              	actionListener="#{fabricanteMB.adicionarFabricante}"
-              	icon="ui-icon-disk" update=":form:fabricante :fabCadastro:pnlCadastro :growl" />
-       		</f:facet>
-      	</h:panelGrid>
-       	</h:form>
+       <h:outputLabel value="Código:" />
+       <p:inputText disabled="true" id="id" value="" style="width:30%;" />
+       <h:outputLabel value="Nome:" />
+       <p:inputText id="desc" value="#{fabricanteMB.fabricanteEntity.descricao}"
+        required="true" style="width:100%;">
+       </p:inputText>
+       <f:facet name="footer">
+       <p:commandButton value="Gravar"
+              actionListener="#{fabricanteMB.adicionarFabricante}"
+              icon="ui-icon-disk" update=":form:fabricante :fabCadastro:pnlCadastro :growl" />
+       </f:facet>
+       </h:panelGrid>
+       </h:form>
        </p:dialog>
        
        <p:dialog widgetVar="dlgEdi" id="edifab" 
-       header="EdiÃ§Ã£o de Fabricante" modal="true" appendTo="@(body)" 
+       header="Edição de Fabricante" modal="true" appendTo="@(body)" 
        resizable="false" draggable="false" width="30%"> 
        <h:form id="fabEditar">
        <h:panelGrid id="pnlEditar" columns="2" cellpadding="5" width="100%">
-       <h:outputLabel value="CÃ³digo:" />
+       <h:outputLabel value="Código:" />
        <p:inputText disabled="true" id="id" value="#{fabricanteMB.fabricanteEntity.idfabricante}"
         style="width:30%;" />
        <h:outputLabel value="Nome:" />
@@ -87,7 +87,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
        style="width:100%;">
        </p:inputText>
        <f:facet name="footer">
-       <p:commandButton value="Gravar ediÃ§Ã£o"
+       <p:commandButton value="Gravar edição"
               actionListener="#{fabricanteMB.editarFabricante}"
               onclick="PF('dlgEdi').hide();" icon="ui-icon-disk"
               update=":form:fabricante :fabCadastro:pnlCadastro :growl" />
